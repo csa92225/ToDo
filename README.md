@@ -1,2 +1,3 @@
 # ToDo
-To do list
+
+To do list for my own practice using React.js
