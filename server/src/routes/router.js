@@ -14,11 +14,11 @@ router.get("/todos", async (req, res) => {
   try{
     const sql = `SELECT * FROM TODOS`
     db.all(sql, [], (err, rows) => {
-        if(err) return res.status(500).json(error_response(err))
-        return res.status(200).json(success_response(rows))
+        if(err) return res.status(500).json(err)
+        return res.status(200).json(rows)
     })
     } catch (err){
-        return res.status(500).json(error_response(err))
+        return res.status(500).json(err)
     }
 })
 
@@ -28,10 +28,10 @@ router.get("/todos/complete", async (req, res) => {
     try {
         sql = `SELECT * FROM TODOS WHERE COMPLETED=?`
         db.each(sql, [1], (err, rows)=> {
-            if(err) return res.status(500).json(error_response(err))
+            if(err) return res.status(500).json(err)
             data.push(rows)
         }, function() {
-        return res.status(200).json(error_response(err)) 
+        return res.status(200).json(err)
         }
         )
     }
@@ -46,8 +46,8 @@ router.post("/todos", async (req, res) => {
         const { task } = req.body;
         sql = `INSERT INTO TODOS(TASK, COMPLETED) VALUES (?, ?)`
         db.run(sql, [task, 0], (err)=>{
-            if(err) return res.status(500).json(error_response(err))
-            return res.status(200).json(success_response("Successfully inserted a new task"))
+            if(err) return res.status(500).json(err)
+            return res.status(200).json("Successfully inserted a new task")
         })
     }
     catch(err){
@@ -61,8 +61,8 @@ router.delete("/todos", (req, res) => {
         const { id } = req.query;
         sql = `DELETE FROM TODOS WHERE ID=?`
         db.run(sql, [id], (err) => {
-            if(err) return res.status(500).json(error_response(err))
-            return res.status(200).json(success_response(`Successfully deleted id=${id}`))
+            if(err) return res.status(500).json(err)
+            return res.status(200).json(`Successfully deleted id=${id}`)
             })
         }
         catch(err){
@@ -73,11 +73,12 @@ router.delete("/todos", (req, res) => {
 //edit todo by id
 router.post("/todos/update", (req, res) => {
     try{
-        const { id, task } = req.body;
+        const { id } = req.query
+        const { task } = req.body;
         sql = `UPDATE TODOS SET TASK = ? WHERE ID = ?`
         db.run(sql, [task, id], (err) => {
-            if(err) return res.status(500).json(error_response(err))
-            return res.status(200).json(success_response(`Successfully updated id=${id}`))
+            if(err) return res.status(500).json(err)
+            return res.status(200).json(`Successfully updated id=${id}`)
         })
     }
     catch(err){
@@ -88,13 +89,13 @@ router.post("/todos/update", (req, res) => {
 //update todo to complete
 router.post("/todos/complete", (req, res) => {
     try{
-        const { id } = req.body;
+        const { id } = req.query;
             sql = `UPDATE TODOS SET COMPLETED=? WHERE ID=?`
             db.run(sql, [ 1, id ], (err) => {
-            if(err) return res.status(500).json(error_response(err))
-            return res.status(200).json(success_response(`Marked completed id=${id}`))
+            if(err) return res.status(500).json(err)
+                return res.status(200).json(`Marked completed id=${id}`)
             })
-            }
+    }
     catch(err){
         return res.send(err)
     }
@@ -103,11 +104,11 @@ router.post("/todos/complete", (req, res) => {
 //recover todo from complete to incomplete
 router.post("/todos/incomplete", (req, res) => {
     try{
-        const { id } = req.body;
+        const { id } = req.query;
             sql = `UPDATE TODOS SET COMPLETED=? WHERE ID=?`,
             db.run(sql, [0, id], (err)=> {
-            if(err) return res.status(500).json(error_response(err))
-            return res.status(200).json(success_response(`Marked incompleted id=${id}`))
+            if(err) return res.status(500).json(err)
+            return res.status(200).json(`Marked incompleted id=${id}`)
             })
     }
     catch(err){
@@ -115,28 +116,25 @@ router.post("/todos/incomplete", (req, res) => {
     }
 });
 
-success_response = function (data){
-  return {
-          data: data, 
-          success: true
-        }
-}
+// success_response = function (data){
+//   return {
+//           data: data, 
+//           success: true
+//         }
+// }
 
-error_response = function (err){
-  return {
-          error: err, 
-          success: false
-        }
-}
-
-module.exports = router
-
-
-
+// error_response = function (err){
+//   return {
+//           error: err, 
+//           success: false
+//         }
+// }
 
 // // db.close((err) => {
 // //   if (err) return console.error(err.message)
 // // })
+
+module.exports = router
 
 
 
