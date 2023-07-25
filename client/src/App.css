@@ -1,10 +1,9 @@
 .App {
-  width: 100vw;
-  height:100vw;
-  background: #f5ddd5;
-  font-weight: 500;
-  margin:0;
-  padding: 50px;
+  font-size: 70px;
+  font-weight: 600;
+  background-image: linear-gradient(to left, #553c9a, #b393d3);
+  color: transparent;
+  background-clip: text;
 }
 
 .icon{

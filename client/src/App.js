@@ -12,16 +12,19 @@ function App(){
   useEffect(()=> {
     axios.get(url).then(res => {
       console.log(res)
+      res.data.sort(function(a,b) {return (a.COMPLETED > b.COMPLETED) ? 1 : ((b.COMPLETED > a.COMPLETED) ? -1 : 0);} );
       setTasks(res.data)
     })
   },[updateUI])
 
   const addTask = () => {
-    axios.post(url, {task:input}).then((res)=>{
-      console.log(res.data)
-      setInput("")
-      setUpdateUI((prevState) => !prevState)
-    })
+    if (input !== ""){
+      axios.post(url, {task:input}).then((res)=>{
+          console.log(res.data)
+          setInput("")
+          setUpdateUI((prevState) => !prevState)
+        })
+    }
   }
 
   const updateMode = (id, task) => {
@@ -50,12 +53,14 @@ function App(){
         </div>
         <ul>
           {tasks.map((task) => (
-          <List 
+          <List  
             key={task.ID} 
             id={task.ID} 
             task={task.TASK} 
+            completed={task.COMPLETED}
             setUpdateUI={setUpdateUI}
-            updateMode={updateMode} />))
+            updateMode={updateMode}
+         />))
           }
         </ul>
       </div>
