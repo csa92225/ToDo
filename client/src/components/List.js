@@ -1,5 +1,6 @@
 import React from 'react';
 
+import "../App.css"
 import {BsTrash} from "react-icons/bs"
 import {BiEditAlt} from "react-icons/bi"
 import {url} from "../App"
@@ -31,8 +32,8 @@ const List = ({id, task, updateMode, setUpdateUI, completed}) => {
     }
 
     return(
-        <li>
-            {completed ? <strike>{task}</strike>: `${task}`}
+        <li className="list">
+            {completed ? <strike>{task}</strike>: task}
             <div className="icon_holder">
                 <BiEditAlt className="icon" onClick={() => {updateMode(id,task)}}/>
                 <BsTrash className="icon" onClick={removeTask}/>

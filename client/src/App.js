@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import List from './components/List'
+import "./App.css"
 import axios from "axios";
 export const url = "http://localhost:4000/todos"
 
@@ -48,8 +49,8 @@ function App(){
       <div className="container">
         <h1 className="title">Todo App</h1>
         <div className="input_holder">
-          <input type="text" value={input} onChange={(e)=>setInput(e.target.value)}/>
-          <button type="submit" onClick={updateId ? updateTask : addTask}>{updateId ? "Update Task" : "Add Task"}</button>
+          <input className="input_box" placeholder="Enter a task to do"type="text" value={input} onChange={(e)=>setInput(e.target.value)}/>
+          <button className="button" type="submit" onClick={updateId ? updateTask : addTask}>{updateId ? "Update" : "Add"}</button>
         </div>
         <ul>
           {tasks.map((task) => (
