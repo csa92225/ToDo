@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { motion } from 'framer-motion';
 import "../App.css"
 import {BsTrash} from "react-icons/bs"
 import {BiEditAlt} from "react-icons/bi"
@@ -32,14 +33,22 @@ const List = ({id, task, updateMode, setUpdateUI, completed}) => {
     }
 
     return(
-        <li className="list">
+        <motion.li class="list-group-item" whileHover={{
+            position: 'relative',
+            zIndex: 1,
+            background: 'white',
+            scale: 1.2,
+            transition: {
+              duration: .2
+            }
+        }}>
             {completed ? <strike>{task}</strike>: task}
             <div className="icon_holder">
                 <BiEditAlt className="icon" onClick={() => {updateMode(id,task)}}/>
                 <BsTrash className="icon" onClick={removeTask}/>
                 <input type="checkbox" checked={completed} onChange={() => !completed ? completeTask(): incompleteTask()}/>
             </div>
-        </li>
+        </motion.li>
     )
 }
 export default List
