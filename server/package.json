@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "proxy": "http://localhost:8000",
+  "proxy": "http://localhost:4000",
   "scripts": {
     "start": "node ./src/index.js",
     "dev": "nodemon ./src/index.js"
@@ -19,7 +19,7 @@
     "nodemon": "^2.0.22",
     "path": "^0.12.7",
     "pg": "^8.11.0",
-    "sqlite3": "^5.1.6"
+    "sqlite3": "^5.0.1"
   },
   "devDependencies": {
     "prettier": "2.8.8"
