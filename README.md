@@ -4,13 +4,13 @@ To do list for my own practice using React.js
 
 ### Run:
 
-```json
+```sh
 cd server
 npm install
 npm run dev
 ```
 
-```json
+```sh
 cd client
 npm install
 npm run start
@@ -20,7 +20,7 @@ OR
 
 ### Alternative way to run with docker-compose:
 
-```json
+```sh
 docker-compose -f ./docker-compose.yml up
 ```
 
